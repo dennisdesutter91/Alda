@@ -1,0 +1,138 @@
+﻿@using System;
+@using System.IO;
+@using System.Reflection;
+@page "/art"
+
+<h3>Art</h3>
+
+@code
+{
+    private int pageSize = 20;
+    private int pageNumber = 1;
+    private List<string> page = new List<string>();
+
+    List<string>
+    mylist = new List<string>
+        (new string[] {
+            "img/art/2011.jpg",
+            "img/art/302.jpg",
+            "img/art/303.jpg",
+            "img/art/315.jpg",
+            "img/art/305.jpg",
+            "img/art/301.jpg",
+            "img/art/300.jpg",
+            "img/art/292.jpg",
+            "img/art/288.jpg",
+            "img/art/263.jpg",
+            "img/art/262.jpg",
+            "img/art/255.jpg",
+            "img/art/241.jpg",
+            "img/art/234.jpg",
+            "img/art/235.jpg",
+            "img/art/236.jpg",
+            "img/art/237.jpg",
+            "img/art/222.jpg",
+            "img/art/217.jpg",
+            "img/art/219.jpg",
+            "img/art/220.jpg",
+            "img/art/221.jpg",
+            "img/art/207.jpg",
+            "img/art/208.jpg",
+            "img/art/209.jpg",
+            "img/art/204.jpg",
+            "img/art/206.jpg",
+            "img/art/196.jpg",
+            "img/art/201.jpg",
+            "img/art/202.jpg",
+            "img/art/192.jpg",
+            "img/art/287.jpg",
+            "img/art/164.png",
+            "img/art/158.jpg",
+            "img/art/153.png",
+            "img/art/76.png",
+            "img/art/77.png",
+            "img/art/78.png",
+            "img/art/79.png",
+            "img/art/80.png",
+            "img/art/81.png",
+            "img/art/82.png",
+            "img/art/83.jpg",
+            "img/art/84.png",
+            "img/art/85.png",
+            "img/art/97.png",
+            "img/art/98.png",
+            "img/art/105.jpg",
+            "img/art/106.jpg",
+            "img/art/107.jpg",
+            "img/art/86.png",
+            "img/art/87.png",
+            "img/art/88.png",
+            "img/art/34.jpg",
+            "img/art/35.jpg",
+            "img/art/203.jpg",
+            "img/art/1.jpg",
+            "img/art/2.png",
+            "img/art/4.png",
+            "img/art/16.png",
+            "img/art/33.jpg",
+            "img/art/89.png",
+            "img/art/60.jpg",
+            "img/art/63.png",
+            "img/art/64.png",
+            "img/art/144.jpg",
+            "img/art/145.jpg",
+            "img/art/134.jpg",
+            "img/art/131.jpg",
+            "img/art/135.jpg",
+            "img/art/34.jpg",
+            "img/art/35.jpg",
+            "img/art/184.jpg",
+            "img/art/115.jpg",
+            "img/art/116.jpg",
+            "img/art/117.jpg",
+            "img/art/118.jpg",
+            "img/art/119.jpg",
+            "img/art/105.jpg",
+            "img/art/106.jpg",
+            "img/art/107.jpg",
+            "img/art/108.jpg",
+            "img/art/109.png",
+            "img/art/95.png",
+            "img/art/94.png",
+            "img/art/120.jpg",
+            "img/art/121.jpg",
+            "img/art/122.jpg",
+            "img/art/98.png",
+            "img/art/93.png",
+            "img/art/123.jpg",
+            "img/art/124.jpg",
+            "img/art/97.png",
+            "img/art/92.png",
+            "img/art/65.png",
+                });
+    
+
+void HandleChangePage(int p)
+{
+    pageNumber = p;
+    page = mylist.Skip((p - 1) * pageSize).Take(pageSize).ToList();
+}
+}
+<div>
+    @if (page.Count == 0)
+    {
+        page = mylist.Take(pageSize).ToList();
+    }
+    @foreach (string image in page)
+    {
+        <img class="zoom" src="@image" />
+    }
+</div>
+
+<div class="paging">
+    @for (var p = 1; p <= ((mylist.Count() - 1)  / pageSize + 1); p++)
+    {
+        int copy = p;
+        <button type="button" @onclick="(e => HandleChangePage(copy))">@p</button>
+    }
+</div>
